@@ -24,78 +24,73 @@
   const panel = document.createElement('div');
   panel.className = 'tb-panel';
   panel.innerHTML = `
-    <div class="tb-header" id="tbHeader">
-      <div class="tb-logo">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
-        </svg>
-        <span>TypeBot</span>
-      </div>
-      <div class="tb-header-btns">
-        <button class="tb-icon-btn" id="tbStealth" title="Stealth Mode (Alt+Shift+H)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </button>
-        <button class="tb-icon-btn" id="tbMinimize" title="Minimize">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <button class="tb-icon-btn tb-close-btn" id="tbClose" title="Exit / Remove Panel" style="color: #fc5c65;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="tb-body" id="tbBody">
-      <div class="tb-status">
-        <div class="tb-dot" id="tbDot"></div>
-        <span id="tbStatus">Ready</span>
-      </div>
-
-      <div class="tb-field">
-        <label>WPM</label>
-        <input type="number" id="tbWpm" min="1" max="500" value="60" />
-      </div>
-
-      <div class="tb-field">
-        <label>Platform</label>
-        <select id="tbPlatform">
-          <option value="generic" selected>Generic / Custom</option>
-          <option value="monkeytype">MonkeyType</option>
-          <option value="typeracer">TypeRacer</option>
-          <option value="10fastfingers">10FastFingers</option>
-          <option value="keybr">Keybr</option>
-          <option value="nitrotype">NitroType</option>
-        </select>
-      </div>
-
-      <div class="tb-field" id="tbGenericTextContainer" style="display:flex; flex-direction:column; align-items:stretch; gap:4px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-          <label style="margin:0;">Text to Type (Copy-Paste here)</label>
-          <button id="tbDetectBtn" style="background:rgba(99,179,237,0.1); border:none; color:#63b3ed; font-size:10px; cursor:pointer; padding:2px 6px; border-radius:4px; font-family:inherit; transition:background 0.15s;">🪄 Auto-Detect</button>
+    <div class="tb-panel" id="tbPanel">
+      <div class="tb-header" id="tbHeader">
+        <div class="tb-logo"><span style="color:#ff793f; margin-right:4px;">⚡</span>TypeBot Panel</div>
+        <div class="tb-header-btns">
+          <button class="tb-icon-btn" id="tbStealth" title="Stealth Mode (Alt+Shift+H)">
+            <svg class="tb-svg" viewBox="0 0 24 24">
+              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+            </svg>
+          </button>
+          <button class="tb-icon-btn" id="tbMinimize" title="Minimize">
+            <svg class="tb-svg" viewBox="0 0 24 24">
+              <path d="M19 13H5v-2h14v2z"/>
+            </svg>
+          </button>
+          <button class="tb-icon-btn tb-close-btn" id="tbClose" title="Exit / Remove Panel" style="border-color: rgba(252,92,101,0.15); color: #fc5c65;">
+            <svg class="tb-svg" viewBox="0 0 24 24" style="stroke: currentColor; stroke-width: 2.5; fill: none;">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
         </div>
-        <textarea id="tbCustomText" placeholder="Paste target passage here or click Auto-Detect..." style="width:100%; height:60px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:6px; color:#e8ecf4; font-size:11px; padding:6px; outline:none; resize:none; font-family:inherit;"></textarea>
       </div>
 
-      <div class="tb-controls" id="tbControlContainer" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-        <button class="tb-btn tb-btn-start" id="tbStart">▶ Start</button>
-        <button class="tb-btn tb-btn-stop" id="tbStop" disabled>■ Stop</button>
-        <button class="tb-btn tb-btn-reset" id="tbReset" style="display: none;">⏹ End</button>
-      </div>
+      <div class="tb-body" id="tbBody">
+        <div class="tb-status">
+          <div class="tb-dot" id="tbDot"></div>
+          <span>Status: <strong id="tbStatus" style="color: #63b3ed;">Ready</strong></span>
+        </div>
 
-      <div class="tb-stats">
-        <div class="tb-stat"><span class="tb-stat-num" id="tbChars">0</span><span class="tb-stat-lbl">chars</span></div>
-        <div class="tb-stat"><span class="tb-stat-num" id="tbWords">0</span><span class="tb-stat-lbl">words</span></div>
-        <div class="tb-stat"><span class="tb-stat-num" id="tbTime">0s</span><span class="tb-stat-lbl">time</span></div>
-      </div>
+        <div class="tb-field">
+          <label>WPM Rate</label>
+          <input type="number" id="tbWpm" min="1" max="500" value="60" />
+        </div>
 
-      <div class="tb-hint">Alt+Shift+H to toggle stealth</div>
+        <div class="tb-field">
+          <label>Mode</label>
+          <select id="tbPlatform">
+            <option value="generic" selected>Generic / Custom</option>
+            <option value="monkeytype">MonkeyType</option>
+            <option value="typeracer">TypeRacer</option>
+            <option value="10fastfingers">10FastFingers</option>
+            <option value="keybr">Keybr</option>
+            <option value="nitrotype">NitroType</option>
+          </select>
+        </div>
+
+        <div class="tb-field-block" id="tbGenericTextContainer">
+          <div class="tb-field-block-header">
+            <label>Target Passage</label>
+            <button id="tbDetectBtn">🪄 Auto-Detect</button>
+          </div>
+          <textarea id="tbCustomText" placeholder="Paste target passage here or click Auto-Detect..."></textarea>
+        </div>
+
+        <div class="tb-controls" id="tbControlContainer" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+          <button class="tb-btn tb-btn-start" id="tbStart">▶ Start</button>
+          <button class="tb-btn tb-btn-stop" id="tbStop" disabled>■ Stop</button>
+          <button class="tb-btn tb-btn-reset" id="tbReset" style="display: none;">⏹ End</button>
+        </div>
+
+        <div class="tb-stats">
+          <div class="tb-stat"><span class="tb-stat-num" id="tbChars">0</span><span class="tb-stat-lbl">chars</span></div>
+          <div class="tb-stat"><span class="tb-stat-num" id="tbWords">0</span><span class="tb-stat-lbl">words</span></div>
+          <div class="tb-stat"><span class="tb-stat-num" id="tbTime">0s</span><span class="tb-stat-lbl">time</span></div>
+        </div>
+
+        <div class="tb-hint">Alt+Shift+H to toggle stealth</div>
+      </div>
     </div>
   `;
   shadow.appendChild(panel);
@@ -114,8 +109,8 @@
     * { margin:0; padding:0; box-sizing:border-box; }
 
     .tb-panel {
-      width: 220px;
-      background: rgba(13,15,20,0.95);
+      width: 240px;
+      background: rgba(13,15,20,0.96);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 14px;
@@ -137,7 +132,7 @@
       justify-content: space-between;
       padding: 10px 12px;
       cursor: grab;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.02);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .tb-header:active { cursor: grabbing; }
@@ -148,7 +143,7 @@
       gap: 6px;
       font-weight: 700;
       font-size: 13px;
-      color: #63b3ed;
+      color: #e8ecf4;
     }
 
     .tb-header-btns {
@@ -159,23 +154,24 @@
     .tb-icon-btn {
       width: 26px; height: 26px;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 6px;
       color: #8b95a8;
       cursor: pointer;
       transition: all 0.15s;
     }
-    .tb-icon-btn:hover { background: rgba(255,255,255,0.1); color: #e8ecf4; }
+    .tb-icon-btn:hover { background: rgba(255,255,255,0.08); color: #e8ecf4; }
     .tb-icon-btn.active { color: #63b3ed; background: rgba(99,179,237,0.12); border-color: rgba(99,179,237,0.3); }
     .tb-close-btn:hover { background: rgba(252,92,101,0.15) !important; color: #fc5c65 !important; border-color: rgba(252,92,101,0.3) !important; }
 
-    .tb-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .tb-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 12px; }
 
     .tb-status {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 10px;
-      background: rgba(255,255,255,0.03);
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
       border-radius: 8px;
       font-size: 12px; color: #8b95a8;
     }
@@ -198,70 +194,94 @@
 
     .tb-field {
       display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 2px 0;
     }
     .tb-field label {
-      font-size: 11px; font-weight: 600; color: #8b95a8;
-      text-transform: uppercase; letter-spacing: 0.5px;
+      font-size: 12px; font-weight: 500; color: #8b95a8;
       flex-shrink: 0;
     }
-    .tb-field input, .tb-field select {
-      flex: 1;
-      padding: 6px 8px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px;
-      color: #e8ecf4; font-size: 13px;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.15s;
-      -webkit-appearance: none;
+    .tb-field input {
+      width: 60px; text-align: right; font-weight: 700;
+      color: #63b3ed; background: transparent; border: none;
+      outline: none; font-size: 13px; font-family: inherit;
+      padding: 2px 0;
     }
-    .tb-field input:focus, .tb-field select:focus {
+    .tb-field select {
+      text-align-last: right; font-weight: 700;
+      color: #e8ecf4; background: transparent; border: none;
+      outline: none; font-size: 12px; font-family: inherit;
+      cursor: pointer; width: 130px;
+      padding: 2px 0;
+    }
+    .tb-field select option { background: #161921; color: #e8ecf4; }
+
+    .tb-field-block {
+      display: flex; flex-direction: column; gap: 5px;
+      padding: 2px 0;
+    }
+    .tb-field-block-header {
+      display: flex; justify-content: space-between; align-items: center; width: 100%;
+    }
+    .tb-field-block-header label {
+      font-size: 12px; font-weight: 500; color: #8b95a8;
+    }
+    .tb-field-block-header button {
+      background: none; border: none; color: #63b3ed; font-size: 11px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: color 0.15s;
+    }
+    .tb-field-block-header button:hover {
+      text-decoration: underline;
+    }
+    .tb-field-block textarea {
+      width: 100%; height: 54px; background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;
+      color: #a0aec0; font-size: 11px; padding: 8px; outline: none;
+      resize: none; font-family: inherit; transition: border-color 0.15s;
+    }
+    .tb-field-block textarea:focus {
       border-color: rgba(99,179,237,0.4);
     }
-    .tb-field input { width: 60px; text-align: center; font-weight: 600; }
-    .tb-field select { cursor: pointer; }
-    .tb-field select option { background: #161921; }
+
     input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
     input[type=number] { -moz-appearance: textfield; }
 
     .tb-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 
     .tb-btn {
-      padding: 8px; border: none; border-radius: 7px;
-      font-size: 12px; font-weight: 600; font-family: inherit;
+      padding: 6px 10px; border: none; border-radius: 8px;
+      font-size: 11px; font-weight: 700; font-family: inherit;
       cursor: pointer; transition: all 0.15s;
     }
     .tb-btn:disabled { opacity: 0.3; cursor: not-allowed; }
     .tb-btn:active:not(:disabled) { transform: scale(0.96); }
 
     .tb-btn-start {
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      background: #2563eb;
       color: #fff;
     }
-    .tb-btn-start:hover:not(:disabled) { box-shadow: 0 2px 12px rgba(37,99,235,0.4); }
+    .tb-btn-start:hover:not(:disabled) { background: #1d4ed8; }
 
     .tb-btn-stop {
-      background: rgba(252,92,101,0.1);
-      color: #fc5c65;
-      border: 1px solid rgba(252,92,101,0.2);
+      background: rgba(255,255,255,0.03);
+      color: #e8ecf4;
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .tb-btn-stop:hover:not(:disabled) { background: rgba(252,92,101,0.18); }
+    .tb-btn-stop:hover:not(:disabled) { background: rgba(255,255,255,0.06); }
 
     .tb-btn-reset {
-      background: rgba(252,92,101,0.1);
+      background: rgba(252,92,101,0.05);
       color: #fc5c65;
-      border: 1px solid rgba(252,92,101,0.2);
+      border: 1px solid rgba(252,92,101,0.25);
     }
-    .tb-btn-reset:hover:not(:disabled) { background: rgba(252,92,101,0.18); }
+    .tb-btn-reset:hover:not(:disabled) { background: rgba(252,92,101,0.1); }
 
     .tb-stats {
       display: flex; justify-content: space-around;
-      padding: 8px 0;
+      padding: 10px 0 2px;
       border-top: 1px solid rgba(255,255,255,0.05);
     }
     .tb-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-    .tb-stat-num { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .tb-stat-num { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; color: #e8ecf4; }
     .tb-stat-lbl { font-size: 9px; color: #5a6478; text-transform: uppercase; letter-spacing: 0.5px; }
 
     .tb-hint {
@@ -516,6 +536,8 @@
       startBtn.textContent = '▶ Resume';
       stopBtn.disabled = false;
       stopBtn.textContent = '■ Stop';
+      resetBtn.style.display = 'none';
+      controlContainer.style.gridTemplateColumns = '1fr 1fr';
       wpmInput.disabled = true;
       platform.disabled = true;
       dot.className = 'tb-dot running';
@@ -538,11 +560,15 @@
         startBtn.disabled = false;
         stopBtn.textContent = '↺ Restart';
         stopBtn.disabled = false;
+        resetBtn.style.display = 'block';
+        controlContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
       } else {
         startBtn.textContent = '▶ Start';
         startBtn.disabled = false;
         stopBtn.textContent = '■ Stop';
         stopBtn.disabled = true;
+        resetBtn.style.display = 'none';
+        controlContainer.style.gridTemplateColumns = '1fr 1fr';
       }
       
       stopStatsPolling();

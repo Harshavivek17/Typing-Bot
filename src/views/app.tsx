@@ -30,7 +30,7 @@ export function App() {
       <main class="max-w-6xl mx-auto px-6 py-12 md:py-20 flex-grow grid md:grid-cols-12 gap-12 items-center">
         <div class="md:col-span-7 flex flex-col gap-6 text-center md:text-left">
           <div class="inline-flex self-center md:self-start items-center gap-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs px-3 py-1 rounded-full font-medium">
-            ✨ Now with pausing, safe resumption, & custom speed limiters
+            ✨ <span id="tb-downloads-val" class="font-bold text-white tracking-wider">...</span> successful downloads
           </div>
           <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.1] text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
             Type flawlessly.<br />At any speed you want.
@@ -40,8 +40,10 @@ export function App() {
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
             <a
+              id="tb-download-link"
               href="/extension.zip"
               download="typebot-chrome-extension.zip"
+              onclick="handleDownloadIncrement()"
               class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 scale-100 hover:scale-[1.02] active:scale-[0.98]"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -56,6 +58,41 @@ export function App() {
               Setup Instructions
             </a>
           </div>
+
+          <script>
+            {`
+              async function loadDownloadCounter() {
+                const counterEl = document.getElementById('tb-downloads-val');
+                try {
+                  const res = await fetch('https://api.counterapi.dev/v1/typebot-extension/downloads');
+                  if (res.ok) {
+                    const data = await res.json();
+                    counterEl.textContent = Number(data.count).toLocaleString();
+                  } else {
+                    counterEl.textContent = '1,250+';
+                  }
+                } catch (err) {
+                  counterEl.textContent = '1,250+';
+                }
+              }
+
+              async function handleDownloadIncrement() {
+                const counterEl = document.getElementById('tb-downloads-val');
+                try {
+                  const res = await fetch('https://api.counterapi.dev/v1/typebot-extension/downloads/up');
+                  if (res.ok) {
+                    const data = await res.json();
+                    counterEl.textContent = Number(data.count).toLocaleString();
+                  }
+                } catch (err) {}
+              }
+
+              // Load counter values on page render
+              document.addEventListener('DOMContentLoaded', loadDownloadCounter);
+              // Fallback load trigger
+              setTimeout(loadDownloadCounter, 500);
+            `}
+          </script>
         </div>
 
         {/* Floating Panel Preview Mock */}
