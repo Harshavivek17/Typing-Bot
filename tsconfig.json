@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "skipLibCheck": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@kitajs/html",
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }],
@@ -17,7 +18,7 @@
     "moduleDetection": "force",
     "allowJs": true,
     "checkJs": true,
-    "types": ["@kitajs/html/htmx.d.ts", "@kitajs/html/alpine.d.ts"]
+    "types": ["@kitajs/html/htmx.d.ts", "@kitajs/html/alpine.d.ts", "node"]
   },
   "include": ["src"]
 }

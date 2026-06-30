@@ -6,6 +6,9 @@ export default defineConfig({
       $: "/src",
     },
   },
+  build: {
+    target: "esnext",
+  },
   esbuild: {
     /* Need these two properties to enable JSX in a typescript environment */
     jsx: "automatic",
