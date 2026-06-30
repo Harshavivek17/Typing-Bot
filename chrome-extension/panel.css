@@ -1,0 +1,11 @@
+/* Panel CSS — injected into page (outside shadow DOM for host element) */
+/* The actual panel styles are inside shadow DOM via panel.js */
+/* This file just ensures the host element doesn't interfere */
+#typebot-root {
+  all: initial;
+  position: fixed;
+  z-index: 2147483647;
+  top: 20px;
+  right: 20px;
+  transition: opacity 0.2s ease;
+}

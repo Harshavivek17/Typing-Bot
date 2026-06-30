@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TypeBot</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      width: 260px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0d0f14;
+      color: #e8ecf4;
+      padding: 20px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 16px;
+    }
+    .logo svg { color: #63b3ed; }
+    .logo h1 {
+      font-size: 16px; font-weight: 700;
+      background: linear-gradient(135deg, #e8ecf4, #63b3ed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .inject-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .inject-btn:hover { box-shadow: 0 4px 20px rgba(37,99,235,0.4); }
+    .inject-btn:active { transform: scale(0.97); }
+    .inject-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .status {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 12px;
+      color: #5a6478;
+      line-height: 1.5;
+    }
+    .status.success { color: #26de81; }
+    .status.error { color: #fc5c65; }
+    .hint {
+      margin-top: 12px;
+      padding: 10px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      font-size: 11px;
+      color: #5a6478;
+      line-height: 1.6;
+    }
+    .hint strong { color: #63b3ed; }
+    .hint kbd {
+      background: rgba(255,255,255,0.08);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 10px;
+      color: #8b95a8;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
+    </svg>
+    <h1>TypeBot</h1>
+  </div>
+
+  <button class="inject-btn" id="injectBtn">⚡ Launch Panel on Page</button>
+
+  <div class="status" id="status"></div>
+
+  <div class="hint">
+    A <strong>floating panel</strong> will appear on the page.<br/>
+    • Drag it anywhere by the header<br/>
+    • <kbd>Alt+Shift+H</kbd> to toggle stealth mode<br/>
+    • Invisible during screen sharing when hidden
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
