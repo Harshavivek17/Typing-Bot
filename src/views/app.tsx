@@ -64,7 +64,7 @@ export function App() {
               async function loadDownloadCounter() {
                 const counterEl = document.getElementById('tb-downloads-val');
                 try {
-                  const res = await fetch('https://api.counterapi.dev/v1/typebot-extension/downloads');
+                  const res = await fetch('/api/downloads');
                   if (res.ok) {
                     const data = await res.json();
                     counterEl.textContent = Number(data.count).toLocaleString();
@@ -79,7 +79,7 @@ export function App() {
               async function handleDownloadIncrement() {
                 const counterEl = document.getElementById('tb-downloads-val');
                 try {
-                  const res = await fetch('https://api.counterapi.dev/v1/typebot-extension/downloads/up');
+                  const res = await fetch('/api/downloads?increment=true');
                   if (res.ok) {
                     const data = await res.json();
                     counterEl.textContent = Number(data.count).toLocaleString();
